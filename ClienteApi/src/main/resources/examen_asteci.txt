@@ -1,0 +1,37 @@
+1.-inyeccion de dependencia
+es todo lo que se guarda dentro del context, estos se hacen por medio de anotaciones,
+tambien se pueden hacer por medio de get y set,por instancia.
+2.- patrones de diseño 
+MVC -> modelo vista controlador, aqui en el modelo se hace el mapeo de la base de datos, vista la comunicacion del front end, controlador,
+permite la comunicacion del modelo y la vista
+DAO -> objeto para acceso a datos, en este caso para la conexion a la base de datos
+DTO -> la transferencia de objectos, en este caso se puede ocupar para los archivos json que viejan a travéz de transferencias.
+Singleton -> limitscion en la creacion de una clase a un solo objeto
+Observer -> dependencia de objetos de uno a muchos, el objeto cambia de estado.
+3.- Arquitectura de framework spring
+core-beans,context,support,expression.
+4.- 
+@Autowired: anotacion que permite no definir la propiedad que se quiere inyectar en el bean.
+@Transactional: esta anotación se manda a llamar en el repository para detectar y controlar  un error 
+en la ejecución de una tarea esto hace rollback y regresa la información anterior.
+@Required: esta anotacion se ocupa para que la información no se deje vacío o en nulo
+Esta anotación se aplica a los métodos de “setters” de beans.
+@Bean: esta anotación se usa para especificar una clase,ya sea para un CRUD
+Esta anotación se utiliza a nivel de método. La anotación @Bean funciona con @Configuration para crear beans Spring.
+@Qualifier
+Esta anotación se usa junto con la anotación @Autowired. Cuando necesita más control del proceso de inyección de dependencia, se puede utilizar @Qualifier.
+@Configuration
+Esta anotación se usa en clases que definen beans.
+@componentScan
+Esta anotación se usa con la anotación @Configuration para permitir que Spring conozca los paquetes para buscar componentes anotados.
+
+@Configuration: indica que la clase tiene metodos definidos como @Bean
+@postCOnstruct: esta anotacion se ejecuta despues de que se complete la inyeccion de dependencia
+@PreDestroy: esta anotacion se llama cuando la instancia del bean se elimina del contexto
+@Qualifier: es parecido al @Autowired, solo que esra anitacion es mas versatil o mas especifico a la hora de inyectar un bean
+5.- converter
+conversion de objeto a string
+6.- lenguaje de programacion orientado a aspectos
+7.- arquitectura de microservicios
+Está compuesto por pequeñoa servicios que son independientes,esto se comunican a través de API.
+8.- swaguer -> documentacion de codigos, API.
