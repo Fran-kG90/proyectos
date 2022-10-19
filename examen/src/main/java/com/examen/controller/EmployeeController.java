@@ -1,5 +1,6 @@
 package com.examen.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,13 +47,24 @@ public class EmployeeController {
 
 	@PostMapping("/employee")
 	public ResponseEntity<Employees> createTutorial(@RequestBody Employees employee) {
+		Employees _employee = null;
 		try {
-			Employees _employee = repo.save(new Employees(employee.getGender(), employee.getJob_id(),
-					employee.getName(), employee.getLast_name(), employee.getBirthdate()));
-			return new ResponseEntity<>(_employee, HttpStatus.CREATED);
+			SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-dd-MM");
+
+			Date compara = sdformat.parse("2005-01-01");
+
+			if (employee.getBirthdate().equals(compara)) {
+				 _employee = repo.save(new Employees(employee.getGender(), employee.getJob_id(),
+						employee.getName(), employee.getLast_name(), employee.getBirthdate()));
+				return new ResponseEntity<>(_employee, HttpStatus.CREATED);
+
+			}
+
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		return new ResponseEntity<>(_employee, HttpStatus.CREATED);
+	
 	}
 
 	@GetMapping("/employeeBySalary")
