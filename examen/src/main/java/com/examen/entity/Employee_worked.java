@@ -19,7 +19,7 @@ public class Employee_worked {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@ManyToOne
-	@JoinColumn(name = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_id_employees"))
+	@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false,foreignKey = @ForeignKey(name = "fk_id_employees"))
 	private Employees employee;
 	private int worked_hours;
 	private Date worked_date;

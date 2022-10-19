@@ -53,7 +53,13 @@ public class EmployeeController {
 
 			Date compara = sdformat.parse("2005-01-01");
 
-			if (employee.getBirthdate().equals(compara)) {
+			if (employee.getBirthdate().after(compara)) {
+				 _employee = repo.save(new Employees(employee.getGender(), employee.getJob_id(),
+						employee.getName(), employee.getLast_name(), employee.getBirthdate()));
+				return new ResponseEntity<>(_employee, HttpStatus.CREATED);
+
+			} 
+			else	if (employee.getBirthdate().equals(compara)) {
 				 _employee = repo.save(new Employees(employee.getGender(), employee.getJob_id(),
 						employee.getName(), employee.getLast_name(), employee.getBirthdate()));
 				return new ResponseEntity<>(_employee, HttpStatus.CREATED);

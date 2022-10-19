@@ -21,10 +21,10 @@ public class Employees {
 	private long id;
 
 	@ManyToOne
-	@JoinColumn(name = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_id_gender"))
+	@JoinColumn(name = "id", nullable = false,insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_id_gender"))
 	private Gender gender;
 	@ManyToOne
-	@JoinColumn(name = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_id_job"))
+	@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false,foreignKey = @ForeignKey(name = "fk_id_job"))
 	private Job job_id;
 	private String name;
 	private String last_name;
