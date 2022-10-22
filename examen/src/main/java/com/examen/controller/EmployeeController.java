@@ -30,7 +30,7 @@ public class EmployeeController {
 		try {
 			List<Employees> employees = new ArrayList<Employees>();
 
-			if (name == null)
+			if (name != null)
 				repo.findAll().forEach(employees::add);
 			else
 				repo.findByNameContaining(name).forEach(employees::add);

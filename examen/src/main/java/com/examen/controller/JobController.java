@@ -1,13 +1,17 @@
 package com.examen.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,23 +27,14 @@ public class JobController {
 	@Autowired
 	JobDao repo;
 
-	@GetMapping("/jobsByPuesto")
-	public ResponseEntity<List<Job>> getAllJobs(@RequestParam(required = false) String puesto) {
-		try {
-			List<Job> jobs = new ArrayList<Job>();
+	@GetMapping("/jobsByPuesto/{puesto}")
+	public ResponseEntity<List<Job>> getAllJobs(@PathVariable("puesto") String puesto) {
+		List<Job> jobs = repo.findByPuesto(puesto);
 
-			if (puesto == null)
-				repo.findAll().forEach(jobs::add);
-			else
-				repo.findByPuesto(puesto).forEach(jobs::add);
-
-			if (jobs.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-
+		if (puesto != null) {
 			return new ResponseEntity<>(jobs, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -49,43 +44,29 @@ public class JobController {
 	}
 	
 	
-	@GetMapping("/jobsByLastname")
-	public ResponseEntity<List<Job>> getLastnameJobs(@RequestParam(required = false) String lastname) {
-		try {
-			List<Job> jobs = new ArrayList<Job>();
+	@GetMapping("/jobsByLastname/{last_name}")
+	public ResponseEntity<List<Job>> getLastnameJobs(@PathVariable("last_name") String lastname) {
+		
+		List<Job> jobs = repo.findByLastname(lastname);
 
-			if (lastname == null)
-				repo.findAll().forEach(jobs::add);
-			else
-				repo.findByLastname(lastname).forEach(jobs::add);
-
-			if (jobs.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-
+		if (lastname != null) {
 			return new ResponseEntity<>(jobs, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
-	@GetMapping("/jobsByHourWorked")
-	public ResponseEntity<List<Job>> getHourWorked(@RequestParam(required = false) Date hour) {
-		try {
-			List<Job> jobs = new ArrayList<Job>();
+	@GetMapping("/jobsByHourWorked/{start}/end/{end}")
+	public ResponseEntity<Job> getHourWorked(@PathVariable("end") Date start, @PathVariable("end") Date end) throws ParseException {
+		
+//		Date myDate1 = new SimpleDateFormat("dd").parse(start);
+//		Date myDate2 = new SimpleDateFormat("dd").parse(end);
+		List<Job> jobs = repo.findByhour(start,end);
 
-			if (hour == null)
-				repo.findAll().forEach(jobs::add);
-			else
-				repo.findByhour(hour).forEach(jobs::add);
-
-			if (jobs.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-
-			return new ResponseEntity<>(jobs, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		if ( start != null && end != null) {
+			return new ResponseEntity<>(jobs.get(0), HttpStatus.OK); 
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	

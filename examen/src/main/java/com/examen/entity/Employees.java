@@ -21,20 +21,20 @@ public class Employees {
 	private long id;
 
 	@ManyToOne
-	@JoinColumn(name = "id", nullable = false,insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_id_gender"))
+	@JoinColumn(name = "id_gender", nullable = false,insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_id_gender"))
 	private Gender gender;
 	@ManyToOne
-	@JoinColumn(name = "id", nullable = false, insertable = false, updatable = false,foreignKey = @ForeignKey(name = "fk_id_job"))
+	@JoinColumn(name = "id_job", nullable = false, insertable = false, updatable = false,foreignKey = @ForeignKey(name = "fk_id_job"))
 	private Job job_id;
 	private String name;
 	private String last_name;
 	private Date birthdate;
+
 	
 
 
 	public Employees( Gender gender, Job job_id, String name, String last_name, Date birthdate) {
 		super();
-		this.id = id;
 		this.gender = gender;
 		this.job_id = job_id;
 		this.name = name;
